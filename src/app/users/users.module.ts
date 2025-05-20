@@ -5,7 +5,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import {RegisterComponent} from '../users/register.component';
 import {SignInComponent} from '../users/sign-in.component';
-
+import {UsersRoutingModule} from './users-routing.module';
 
 @NgModule({
     imports:[
@@ -13,7 +13,8 @@ import {SignInComponent} from '../users/sign-in.component';
         ReactiveFormsModule,
         FormsModule,
         RouterModule,
-        SharedModule
+        SharedModule,
+        UsersRoutingModule
     ],
     declarations:[RegisterComponent, SignInComponent],
     exports: [],

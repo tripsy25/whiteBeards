@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { CatalogRepositoryService } from '../catalog/catalog-repository.service';
 import { UserRepositoryService } from '../services/user-repository.service';
@@ -8,10 +8,12 @@ import { FilterClassesService } from './filter-classes.service';
 @Component({
   styleUrls: ['./catalog.component.css'],
   templateUrl: './catalog.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CatalogComponent implements OnInit{
   classes: IClass[] = [];
   visibleClasses: IClass[] = [];
+  orderByField: string =  '';
 
   constructor(
     private catalogRepository: CatalogRepositoryService,
@@ -24,6 +26,17 @@ export class CatalogComponent implements OnInit{
       this.classes = classes;
       this.applyFilter('');
     });
+  }
+
+  mutateFirstProfessor(){
+    this.visibleClasses[0].professor = "Lucarion"
+  }
+
+  updateFirstProfessor(){
+    this.visibleClasses = [
+      {...this.visibleClasses[0], professor: "Lucarion"},
+      ...this.visibleClasses.slice(1)
+    ];
   }
 
   enroll(classToEnroll: IClass) {

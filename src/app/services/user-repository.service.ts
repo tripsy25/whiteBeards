@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject, EMPTY, throwError } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { concat } from 'lodash';
 
 import { IUser } from '../users/user.model';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserRepositoryService {
   currentUser: IUser | null = null;
 
@@ -24,7 +27,7 @@ export class UserRepositoryService {
     if (this.currentUser.classes.includes(classId))
       return throwError(() => new Error('Already enrolled'));
 
-    this.currentUser = {...this.currentUser, classes: this.currentUser.classes.concat(classId)};
+    this.currentUser = {...this.currentUser, classes: concat(this.currentUser.classes, classId)};
 
     return EMPTY.pipe(delay(1000));
   }

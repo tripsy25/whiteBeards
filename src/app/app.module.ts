@@ -6,14 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import{ CatalogModule } from './catalog/catalog.module';
-import {UsersModule} from './users/users.module';
 
 
 @NgModule({
   declarations: [
     AppComponent
   ],
-  imports: [BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule, CoreModule, CatalogModule, UsersModule],
+  imports: [BrowserModule, FormsModule, ReactiveFormsModule, AppRoutingModule, CoreModule, CatalogModule],
   providers: [],
   bootstrap: [AppComponent],
 })
