@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { UserRepositoryService } from "../services/user-repository.service";
-import { AuthService, User } from "../services/auth.service";
+import { AuthService } from "../services/auth.service";
+import { IUser } from "../users/user.model";
 
 @Component({
   selector: 'wb-nav-bar',
@@ -19,7 +20,7 @@ import { AuthService, User } from "../services/auth.service";
 
 export class NavBarComponent  {
   isLoggedIn$: Observable<boolean>;
-  currentUser$: Observable<User | null>;
+  currentUser$: Observable<IUser | null>;
 
   constructor(
     private userRepository: UserRepositoryService,

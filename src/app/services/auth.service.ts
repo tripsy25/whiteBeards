@@ -1,17 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-
-export interface User {
-  email: string;
-  name?: string;
-}
+import { IUser } from '../users/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(this.hasToken());
-  private currentUserSubject = new BehaviorSubject<User | null>(this.getCurrentUser());
+  private currentUserSubject = new BehaviorSubject<IUser | null>(this.getCurrentUser());
 
   public isLoggedIn$ = this.isLoggedInSubject.asObservable();
   public currentUser$ = this.currentUserSubject.asObservable();
@@ -22,10 +18,20 @@ export class AuthService {
     return localStorage.getItem('isLoggedIn') === 'true';
   }
 
-  private getCurrentUser(): User | null {
+  private getCurrentUser(): IUser | null {
     const email = localStorage.getItem('userEmail');
-    if (email) {
-      return { email };
+    const userId = localStorage.getItem('userId');
+    const firstName = localStorage.getItem('firstName');
+    const lastName = localStorage.getItem('lastName');
+    
+    if (email && userId) {
+      return { 
+        userId,
+        firstName: firstName || 'Admin',
+        lastName: lastName || 'User',
+        email,
+        classes: []
+      };
     }
     return null;
   }
@@ -37,8 +43,17 @@ export class AuthService {
         if (email === 'admin@whitebeards.com' && password === 'password123') {
           localStorage.setItem('isLoggedIn', 'true');
           localStorage.setItem('userEmail', email);
+          localStorage.setItem('userId', '1');
+          localStorage.setItem('firstName', 'Admin');
+          localStorage.setItem('lastName', 'User');
           
-          const user: User = { email };
+          const user: IUser = { 
+            userId: '1',
+            firstName: 'Admin',
+            lastName: 'User',
+            email,
+            classes: []
+          };
           this.isLoggedInSubject.next(true);
           this.currentUserSubject.next(user);
           
@@ -54,6 +69,9 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('isLoggedIn');
     localStorage.removeItem('userEmail');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
     this.isLoggedInSubject.next(false);
     this.currentUserSubject.next(null);
   }
@@ -62,7 +80,7 @@ export class AuthService {
     return this.isLoggedInSubject.value;
   }
 
-  getCurrentUserValue(): User | null {
+  getCurrentUserValue(): IUser | null {
     return this.currentUserSubject.value;
   }
 }

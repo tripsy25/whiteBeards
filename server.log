@@ -1,0 +1,30 @@
+
+> whitebeards@0.0.0 start
+> ng serve
+
+- Generating browser application bundles (phase: setup)...
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files              | Names              |  Raw Size
+vendor.js                        | vendor             |   2.86 MB |
+polyfills.js                     | polyfills          | 314.28 kB |
+styles.css, styles.js            | styles             | 209.52 kB |
+main.js                          | main               |  90.70 kB |
+runtime.js                       | runtime            |  12.96 kB |
+
+| Initial Total      |   3.47 MB
+
+Lazy Chunk Files                 | Names              |  Raw Size
+src_app_users_users_module_ts.js | users-users-module |  33.17 kB |
+
+Build at: 2025-08-04T15:35:11.140Z - Hash: 81550cb85171d458 - Time: 2963ms
+
+Warning: /workspace/src/app/services/user-repository.service.ts depends on 'lodash'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+✔ Compiled successfully.
